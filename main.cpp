@@ -59,7 +59,7 @@ int main(){
     oslIntraFontInit(INTRAFONT_CACHE_ALL | INTRAFONT_STRING_UTF8); // All fonts loaded with oslLoadIntraFontFile will have UTF8 support
 
     //Object background = Object(0, 0, 480, 272, 100, bgimg, true,0);
-    Object player = Object(100,80,46,24,1000,playerimg,true,0);
+    Object player = Object(100,80,46,24,1000,playerimg,true,0,0);
 
     while(!quit){
         if (!skip){
@@ -67,11 +67,14 @@ int main(){
 
             //background.blitObject();
             player.blitObject();
-            player.control(player);
+            player.control();
+            
             oslEndDrawing();
         }
         oslEndFrame();
         skip = oslSyncFrame();
+        oslReadKeys();
+        
     }
 	
         

@@ -23,6 +23,7 @@ public:
 	OSL_IMAGE *image;
 	bool isalive;	
 	int pctr;
+	int angle;
 	
 	bool quit;
 
@@ -31,11 +32,11 @@ public:
 
 	
 
-	Object(int, int, int, int, int, char*, bool, int);
+	Object(int, int, int, int, int, char*, bool, int, int);
 
 	void blitObject();
 	void setBackground();
-	bool control(Object obj);
+	void control();
 
 };
 #endif
