@@ -9,13 +9,12 @@
 #include <pspgu.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string>
 #include <vector>
 #include <unistd.h>
 #include <mikmod.h>
 #include <psputility_sysparam.h>
 #include "object.h"
-#include "control.h"
+
 
 
 using namespace std;
@@ -31,16 +30,14 @@ int initOSLib(){
     oslSetKeyAutorepeatInterval(10);
     return 0;
 }
-//#define MAX_NUM_BULLETS 100
-//#define MAX_NUM_ENEMIES 100
 
 PSP_MODULE_INFO("BattleStar C++", 0, 1, 0);
 PSP_MAIN_THREAD_ATTR(THREAD_ATTR_USER | THREAD_ATTR_VFPU);
 PSP_HEAP_SIZE_KB(12*1024);
 
 char playerName[128];
-//string playerName;
 
+bool quit = false;
 // EXIT CALLBACK
 /* Exit callback */
 //int exit_callback(int arg1, int arg2, void *common) {
@@ -58,116 +55,28 @@ int main(){
     sceUtilityGetSystemParamString(PSP_SYSTEMPARAM_ID_STRING_NICKNAME, playerName, 127);
 
     initOSLib();
-    pspAudioInit();
-    
-    //Build in CPP
-    //initMusic();
-    //fontInit();
  
     oslIntraFontInit(INTRAFONT_CACHE_ALL | INTRAFONT_STRING_UTF8); // All fonts loaded with oslLoadIntraFontFile will have UTF8 support
 
-    //Loads image:
-    //OSL_IMAGE *bkg = oslLoadImageFilePNG("bsg_title.png", OSL_IN_RAM | OSL_SWIZZLED, OSL_PF_8888);
-    //char *myfile = "bsg_title.png";
-    //OSL_IMAGE *img = oslLoadImageFilePNG(filepath, OSL_IN_RAM | OSL_SWIZZLED, OSL_PF_8888);
-    
+    //Object background = Object(0, 0, 480, 272, 100, bgimg, true,0);
+    Object player = Object(100,80,46,24,1000,playerimg,true,0);
 
-    
-    Object background = Object(0, 0, 480, 272, 100, bgimg, true,0);
-    Object player = Object(10,80,46,24,1000,playerimg,true,0);
-    //obj.setBackground();
-    //Build in CPP
-    //loadCharacterData();
-    
-  
-
-    //Starts to play MP3    
-    //MP3_Play();
-
-/////////////////////////////////
-// Splash Screen
-/////////////////////////////////
-    //drawSplashText();
-
-    while(!osl_quit){
+    while(!quit){
         if (!skip){
             oslStartDrawing();
 
             //background.blitObject();
             player.blitObject();
-            //oslDrawImageXY(img, 0, 0);
-            control();
-            //drawSplashText();
-
+            player.control(player);
             oslEndDrawing();
         }
         oslEndFrame();
         skip = oslSyncFrame();
-
-		//if(MP3_EndOfStream() == 1)
-		//	MP3_Stop();
-
-        oslReadKeys();
-        if (osl_keys->released.cross)
-            break; //oslQuit();
-
     }
-	//MP3_Stop(1);
-   	//MP3_FreeTune(1);
-    
-	//setupMikMod();
-
-
-///////////////////////////////////////
-// Main Game Loop
-///////////////////////////////////////
-    
-    //gameScreenFontSetup();
-/**
-    while(!osl_quit){
-        if (!skip){
-            oslStartDrawing();
- 	        moveStuff();
-
-            blitEnemies();		
-
-            control();
-
-            if(MP3_EndOfStream() == 1)
-		        MP3_Stop();
-
-
-            blitObj(player);
-            if(battlestar.isalive==1){
-                blitObj(battlestar);
-            }
-            blitObj(hs_bar);
-            blitObj(status_bar);
-
-            //oslIntraFontSetStyle(pgfFont, 0.65f,WHITE,BLACK,0);
-            oslDrawString(2,230,playerName);
-            //drawStatusInfo();
-            printScore();
-            oslEndDrawing();      
-       
-        }
-         
-        oslEndFrame();
-        skip = oslSyncFrame();
-
-	    // if(MP3_EndOfStream() == 1)
-		//     MP3_Stop();
-
-       
-    }*/
-	//MP3_Stop(1);
-   	//MP3_FreeTune(1);
+	
         
     //Quit OSL:
     oslEndGfx();
-
-    // Quit MikMod
-    // quitMikMod();
 
     // Kernel Exit
     sceKernelExitGame();

@@ -2,6 +2,6 @@
 #define _CONTROL_H_
 
 
-void control();
+void control(Object& obj);
 
 #endif

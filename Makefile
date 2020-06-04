@@ -1,5 +1,5 @@
-TARGET = battlestarcpp
-OBJS = main.o
+TARGET = pspgamecpp
+OBJS = object.o  main.o
 
 #To build for custom firmware:
 BUILD_PRX = 1
@@ -18,7 +18,7 @@ LIBS=$(STDLIBS) $(MYLIBS)
 
 LDFLAGS =
 EXTRA_TARGETS = EBOOT.PBP
-PSP_EBOOT_TITLE = BattleStar CPP
+PSP_EBOOT_TITLE = PSP Game
 #PSP_EBOOT_ICON = bsg_eboot_icon.png
 #PSP_EBOOT_PIC1 = bsg_eboot_bg.png
 PSPSDK=$(shell psp-config --pspsdk-path)

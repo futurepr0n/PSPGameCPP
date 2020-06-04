@@ -23,7 +23,8 @@ Object::Object(int x_coor, int y_coor, int x_len, int y_len, int h, char *imgnam
 }
 
 void Object::blitObject(){
-	image->angle = 45;
+	//image->angle = 45;
+	//Object::control();
 	oslDrawImageXY(image, x, y);
 	
 	//oslDrawImage(image);
@@ -33,3 +34,18 @@ void Object::setBackground(){
 	
 }
 
+bool Object::control(Object obj){
+		quit = false;
+	    oslReadKeys();
+        //if (osl_keys->held.circle){/**shootChain();playBullet();*/}   
+        if((osl_keys->held.right)&&obj.x <= 150){obj.x = obj.x + 1;}      
+        if((osl_keys->held.left)&&obj.x > 60){obj.x = obj.x - 1;} 
+        if((osl_keys->held.up)&&obj.y > -10){obj.y = obj.y - 5;}  
+        if((osl_keys->held.down)&&obj.y < 262){obj.y = obj.y + 5;}
+		if (osl_keys->released.cross){
+
+			quit = true;
+            //return quit; //oslQuit();
+		}
+		return quit;
+}

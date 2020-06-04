@@ -7,14 +7,10 @@
 #define _OBJECT_H_
 
 //#include <iostream>
-#include <string>
 #include <oslib/oslib.h>
 
 #define bgimg "bsg_title.png"
 #define playerimg "vipersm.png"
-
-
-using namespace std;
 
 class Object{
 
@@ -27,6 +23,8 @@ public:
 	OSL_IMAGE *image;
 	bool isalive;	
 	int pctr;
+	
+	bool quit;
 
 	//char *bgimg = "bsg_title.png";
 	//char *playerimg = "vipersm.png";
@@ -37,6 +35,7 @@ public:
 
 	void blitObject();
 	void setBackground();
+	bool control(Object obj);
 
 };
 #endif
