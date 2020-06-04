@@ -36,7 +36,7 @@ public:
 
 	void blitObject();
 	void setBackground();
-	void control();
+	int control();
 
 };
 #endif

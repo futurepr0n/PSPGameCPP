@@ -4,7 +4,8 @@
 #include <oslib/oslib.h>
 #include "object.h"
 
-
+#define KEYUP 0
+#define KEYDOWN 1
 
 using namespace std;
 
@@ -35,25 +36,40 @@ void Object::setBackground(){
 	
 }
 
-void Object::control(){
+int Object::control(){
 	    oslReadKeys();
+		int c = KEYUP;
         //if (osl_keys->held.circle){/**shootChain();playBullet();*/}   
-        if((osl_keys->held.right)&&x <= 150){x = x + 1;}      
-        if((osl_keys->held.left)&&x > 60){x = x - 1;} 
+        if((osl_keys->held.right)&&x <= 150){
+			x = x + 1;
+			c = KEYDOWN;
+			}      
+        if((osl_keys->held.left)&&x > 60){
+			x = x - 1;
+			c = KEYDOWN;
+			} 
         if((osl_keys->held.up)&&y > -10){
-			y = y - 5;
-			if(angle < 45)
-			angle++;	
-		}  
+			y--;
+			//if(angle > - 45)
+			angle--;	
+			c = KEYDOWN;
+		}  			
         if((osl_keys->held.down)&&y < 262){
-			y = y + 5;
-			if(angle>-45)
-			angle--;
+			y++;
+			//if(angle<45)
+			angle++;
+			c = KEYDOWN;
 		}
+
+	/**	if((osl_keys->released.up)&&angle < 0)
+			angle++;		
+		if((osl_keys->released.down)&& angle > 0)
+				angle--;
+ */
 		if (osl_keys->released.cross){
 
 			quit = true;
             //return quit; //oslQuit();
 		}
-		//return quit;
+		return c;
 }

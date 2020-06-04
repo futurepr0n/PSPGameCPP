@@ -19,7 +19,18 @@
 
 using namespace std;
 
+#define UP 0
+#define DOWN 1
 
+#define KEYUP 0
+#define KEYDOWN 1
+
+int controller = KEYUP;
+
+
+int direction = UP;
+
+int counter = 0;
 
 int initOSLib(){
     oslInit(0);
@@ -63,12 +74,42 @@ int main(){
 
     while(!quit){
         if (!skip){
+            //controller = KEYUP;
             oslStartDrawing();
+            if(direction == UP){
+                if(counter <= 5){
+                    counter++;
+                    player.y--;
+                    if (counter > 5){
+                        counter = 0;
+                        direction = DOWN;
+                    }
+                }
+            }
+            if(direction == DOWN){
+                if(counter <= 5){
+                    counter++;
+                    player.y++;
+                    if (counter > 5){
+                        counter = 0;
+                        direction = UP;
+                    }
+                }
+            }
+
+            if(controller == KEYUP && player.angle >0){
+                player.angle--;
+            }
+            if(controller == KEYUP && player.angle<0){
+                player.angle++;
+            }
+            
 
             //background.blitObject();
             player.blitObject();
-            player.control();
+            controller = player.control();
             
+
             oslEndDrawing();
         }
         oslEndFrame();
