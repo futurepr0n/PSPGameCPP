@@ -25,6 +25,7 @@ Object::Object(int x_coor, int y_coor, int x_len, int y_len, int h, char *imgnam
 }
 
 void Object::blitObject(){
+	oslSetImageRotCenter(image);
 	image->angle = angle;
 	//Object::control();
 	oslDrawImageXY(image, x, y);
@@ -42,22 +43,22 @@ int Object::control(){
         //if (osl_keys->held.circle){/**shootChain();playBullet();*/}   
         if((osl_keys->held.right)&&x <= 150){
 			x = x + 1;
-			c = KEYDOWN;
+			
 			}      
         if((osl_keys->held.left)&&x > 60){
 			x = x - 1;
-			c = KEYDOWN;
+			
 			} 
         if((osl_keys->held.up)&&y > -10){
 			y--;
-			//if(angle > - 45)
-			angle--;	
+			if(angle > -23)
+				angle--;	
 			c = KEYDOWN;
 		}  			
         if((osl_keys->held.down)&&y < 262){
 			y++;
-			//if(angle<45)
-			angle++;
+			if(angle<23)
+				angle++;
 			c = KEYDOWN;
 		}
 

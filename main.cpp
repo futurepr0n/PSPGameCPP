@@ -76,8 +76,8 @@ int main(){
         if (!skip){
             //controller = KEYUP;
             oslStartDrawing();
-            if(direction == UP){
-                if(counter <= 5){
+            if(direction == UP && controller == KEYUP){
+                if(counter <= 15){
                     counter++;
                     player.y--;
                     if (counter > 5){
@@ -86,8 +86,8 @@ int main(){
                     }
                 }
             }
-            if(direction == DOWN){
-                if(counter <= 5){
+            if(direction == DOWN && controller == KEYUP){
+                if(counter <= 15){
                     counter++;
                     player.y++;
                     if (counter > 5){
@@ -98,10 +98,10 @@ int main(){
             }
 
             if(controller == KEYUP && player.angle >0){
-                player.angle--;
+                player.angle = player.angle-3;
             }
             if(controller == KEYUP && player.angle<0){
-                player.angle++;
+                player.angle = player.angle+3;
             }
             
 
