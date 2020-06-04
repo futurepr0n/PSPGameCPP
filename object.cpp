@@ -43,13 +43,13 @@ int Object::control(){
         //if (osl_keys->held.circle){/**shootChain();playBullet();*/}   
         if((osl_keys->held.right)&&x <= 150){
 			x = x + 1;
-			
+			c = KEYDOWN;
 			}      
         if((osl_keys->held.left)&&x > 60){
 			x = x - 1;
-			
+			c = KEYDOWN;
 			} 
-        if((osl_keys->held.up)&&y > -10){
+        if((osl_keys->held.up)&&y > 10){
 			y--;
 			if(angle > -23)
 				angle--;	
