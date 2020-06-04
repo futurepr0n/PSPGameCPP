@@ -9,14 +9,17 @@
 #include <pspgu.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string>
 #include <vector>
 #include <unistd.h>
 #include <mikmod.h>
 #include <psputility_sysparam.h>
-#include "object.cpp"
+#include "object.h"
+#include "control.h"
+
 
 using namespace std;
+
 
 
 int initOSLib(){
@@ -65,7 +68,13 @@ int main(){
 
     //Loads image:
     //OSL_IMAGE *bkg = oslLoadImageFilePNG("bsg_title.png", OSL_IN_RAM | OSL_SWIZZLED, OSL_PF_8888);
-    Object obj = Object(0, 0, 480, 272, 100, "bsg_title", true,0);
+    //char *myfile = "bsg_title.png";
+    //OSL_IMAGE *img = oslLoadImageFilePNG(filepath, OSL_IN_RAM | OSL_SWIZZLED, OSL_PF_8888);
+    
+
+    
+    Object background = Object(0, 0, 480, 272, 100, bgimg, true,0);
+    Object player = Object(10,80,46,24,1000,playerimg,true,0);
     //obj.setBackground();
     //Build in CPP
     //loadCharacterData();
@@ -84,8 +93,10 @@ int main(){
         if (!skip){
             oslStartDrawing();
 
-            obj.blitObject();
-
+            //background.blitObject();
+            player.blitObject();
+            //oslDrawImageXY(img, 0, 0);
+            control();
             //drawSplashText();
 
             oslEndDrawing();
