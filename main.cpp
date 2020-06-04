@@ -73,7 +73,7 @@ int main(){
         }
         oslEndFrame();
         skip = oslSyncFrame();
-        oslReadKeys();
+        
         
     }
 	

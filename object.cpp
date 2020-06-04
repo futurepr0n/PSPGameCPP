@@ -24,7 +24,7 @@ Object::Object(int x_coor, int y_coor, int x_len, int y_len, int h, char *imgnam
 }
 
 void Object::blitObject(){
-	image->angle;
+	image->angle = angle;
 	//Object::control();
 	oslDrawImageXY(image, x, y);
 	
@@ -43,12 +43,12 @@ void Object::control(){
         if((osl_keys->held.up)&&y > -10){
 			y = y - 5;
 			if(angle < 45)
-				angle= angle + 5;	
+			angle++;	
 		}  
         if((osl_keys->held.down)&&y < 262){
 			y = y + 5;
-			if(angle > -45)
-				angle = angle - 5;
+			if(angle>-45)
+			angle--;
 		}
 		if (osl_keys->released.cross){
 
